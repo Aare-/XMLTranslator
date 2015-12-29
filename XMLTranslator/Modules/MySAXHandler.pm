@@ -27,8 +27,13 @@ sub start_element {
 	my ($self, $el) = @_;
 	
 	push @cache, $el->{Name};
-	foreach my $line (@xmllines) {
-		if($line eq join(".", @cache)) {
+	$capture = 0;
+	foreach my $line (@xmllines) {	
+		my $joined = join(".", @cache);
+		chomp($joined);
+		chomp($line);
+
+		if($line eq $joined) {
 			$capture = 1;			
 		}
 	}	
