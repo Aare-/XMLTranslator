@@ -1,4 +1,4 @@
-package Modules::MySAXHandler;
+package Modules::SHGenCSV;
 use strict;
 use warnings;
 

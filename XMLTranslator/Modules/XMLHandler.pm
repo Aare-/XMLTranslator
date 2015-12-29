@@ -5,14 +5,14 @@ use warnings;
 use Exporter qw(import);
 
 use XML::SAX;
-use Modules::MySAXHandler;
+use Modules::SHGenCSV;
 
 our @EXPORT_OK = qw(convertXMLtoCSV);
 
 sub convertXMLtoCSV {
 	my ($in, $out, $lang, $info) = @_;	
  
-	my $handler = Modules::MySAXHandler->new;
+	my $handler = Modules::SHGenCSV->new;
 
 	#reading template info
 	my @xmllines = ();

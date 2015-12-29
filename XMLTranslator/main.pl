@@ -22,15 +22,12 @@ sub getValueForParameter {
 		$i++;
 	}
 
-	return 0;
+	return $_[1];
 }
 
 sub getInfoPath {
-	my $in = $_[0];
-	my $info = getValueForParameter(["-i", "--info"]);
-	if(!$info) {
-		$info = "translate.info";		
-	}
+	my $in = $_[0];	
+	my $info = getValueForParameter(["-i", "--info"], $_[1]);	
 	my @in_split = File::Spec->splitdir( $in );
 	splice(@in_split, -1);
 	$info = File::Spec->catfile(@in_split, $info);	
@@ -49,20 +46,13 @@ for (;;) {
 		die showHelp();	
 	} elsif($command eq "-c" || $command eq "--convert") {
 		my $in = shift @argvs or die showHelp("\nMissing input file parameter\n");
-		my $out = shift @argvs or die showHelp("\nissing output file parameter\n");
-		my $lang = getValueForParameter(["-l", "--language"]) or die showHelp("\nMissing language parameter\n");		
-		my $info = getInfoPath($in);
+		my $out = shift @argvs or die showHelp("\nMissing output file parameter\n");
+		my $lang = getValueForParameter(["-l", "--language"], "English");		
+		my $info = getInfoPath($in, "translate.info");
 		
 		convertXMLtoCSV($in, $out, $lang, $info);
 
 		die "\nDone.\n";
-	} elsif($command eq "-d" || $command eq "--deconvert") {	
-		my $in = shift @argvs or die showHelp("\nMissing input file parameter\n");
-		my $out = shift @argvs or die showHelp("\nMissing output file parameter\n");
-		my $lang = getValueForParameter(["-l", "--language"]) or die showHelp("\nMissing language parameter\n");		
-		my $info = getInfoPath($in);
-
-		die "\nDone.\n";	
 	} else {
 		unless(($command eq "-l" || $command eq "--language" ||
 			 $command eq "-i" || $command eq "--info")) {
