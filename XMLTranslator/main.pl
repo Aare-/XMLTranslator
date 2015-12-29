@@ -24,10 +24,21 @@ sub getValueForParameter {
 	return 0;
 }
 
-my @argvs = ();
-foreach my $elem (@ARGV) {
-	push @argvs, $elem;
+sub getInfoPath {
+	my $in = $_[0];
+	my $info = getValueForParameter(["-i", "--info"]);
+	if(!$info) {
+		$info = "translate.info";		
+	}
+	my @in_split = File::Spec->splitdir( $in );
+	splice(@in_split, -1);
+	$info = File::Spec->catfile(@in_split, $info);	
+
+	return $info;
 }
+
+# copy array
+my @argvs = @ARGV;
 
 for (;;) {
 	my $command = shift @argvs or die showHelp();
@@ -39,20 +50,17 @@ for (;;) {
 		my $in = shift @argvs or die showHelp("\nMissing input file parameter\n");
 		my $out = shift @argvs or die showHelp("\nissing output file parameter\n");
 		my $lang = getValueForParameter(["-l", "--language"]) or die showHelp("\nMissing language parameter\n");		
-		my $info = getValueForParameter(["-i", "--info"]);
-		if(!$info) {
-			$info = "translate.info";		
-		}
+		my $info = getInfoPath($in);
+		
+		print("INFO: ".$info);		
+
 
 		die "\nDone.\n";
 	} elsif($command eq "-d" || $command eq "--deconvert") {	
 		my $in = shift @argvs or die showHelp("\nMissing input file parameter\n");
 		my $out = shift @argvs or die showHelp("\nMissing output file parameter\n");
 		my $lang = getValueForParameter(["-l", "--language"]) or die showHelp("\nMissing language parameter\n");		
-		my $info = getValueForParameter(["-i", "--info"]);
-		if(!$info) {
-			$info = "translate.info";		
-		}
+		my $info = getInfoPath($in);
 
 		die "\nDone.\n";	
 	} else {
