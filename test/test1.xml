@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dialog>
+  <sentence>
+    <line>[MetaData]TestSentence</line>
+  </sentence>
+  <sentence>
+    <line>[MetaData1]Test[MetaData2]Sentence[MetaData3]</line>
+  </sentence>
+  <sentence>
+    <line>Billy?</line>
+  </sentence>
+</dialog>
