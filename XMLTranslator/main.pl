@@ -6,8 +6,9 @@ use File::Basename qw(dirname);
 use Cwd  qw(abs_path);
 use lib dirname(dirname abs_path $0) . '/modules';
 
-use Modules::XMLHandler qw(test);
+use Modules::XMLHandler qw(convertXMLtoCSV);
 use Modules::Help qw(showHelp);
+
 
 sub getValueForParameter {	
 	my @param = @{$_[0]};
@@ -52,8 +53,7 @@ for (;;) {
 		my $lang = getValueForParameter(["-l", "--language"]) or die showHelp("\nMissing language parameter\n");		
 		my $info = getInfoPath($in);
 		
-		print("INFO: ".$info);		
-
+		convertXMLtoCSV($in, $out, $lang, $info);
 
 		die "\nDone.\n";
 	} elsif($command eq "-d" || $command eq "--deconvert") {	
