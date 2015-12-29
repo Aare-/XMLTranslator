@@ -1,5 +1,5 @@
 # XMLTranslator
-Convinient way to colaborate with translators on the xml files.
+Convenient way to colaborate with translators on the xml files.
 Generate csv files from xml, that can be easilly opened by translators in excel. 
 
 #Requirements
@@ -14,7 +14,7 @@ For example given the xml file:
 	<line>test</line>
 </root>
 ```
-If one wish to export content of the 'line; node .info file should contain one line:
+If one wish to export content of the 'line' node .info file should contain one line:
 ```
 root.line
 ```
